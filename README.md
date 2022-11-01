@@ -28,3 +28,8 @@ What is tech this project used:
 - uuid - for generate user id
 - JWT - 
 - mockaroo - mock data [`mockaroo.com`](https://www.mockaroo.com/)
+
+
+## Plan
+- connect MySql DB
+- connect Mongo DB
