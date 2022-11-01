@@ -1,6 +1,6 @@
 const _ = require("lodash");
 const uuid = require("uuid");
-const users = require("./MOCK_DATA.json");
+const users = require("../MOCK_DATA.json");
 
 exports.findAll = () => {
   return users;
@@ -8,6 +8,15 @@ exports.findAll = () => {
 
 exports.findById = (id) => {
   const user = _.find(users, (user) => user.id == id);
+  return user || 404;
+};
+
+exports.findUser = (data) => {
+  const { email, password } = data;
+  const user = _.find(
+    users,
+    (user) => user.email === email && user.password === password
+  );
   return user || 404;
 };
 

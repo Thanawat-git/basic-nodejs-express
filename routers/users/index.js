@@ -1,7 +1,6 @@
-const express = require("express");
-const user = require("../../users");
-
-const router = express.Router();
+const { verifyToken } = require("../../functions/auth");
+const { router } = require("../../functions/express");
+const user = require("../../functions/users");
 
 // get all users
 router.get("/", (req, res) => {
@@ -9,7 +8,7 @@ router.get("/", (req, res) => {
 });
 
 // get user by id
-router.get("/:id", (req, res) => {
+router.get("/:id", verifyToken, (req, res) => {
   const id = req.params.id;
   const data = user.findById(id);
   if (data && data !== 404) {
@@ -22,7 +21,7 @@ router.get("/:id", (req, res) => {
 // // search user by fname, lname, gender, email
 
 // // create user
-router.post("/create", (req, res) => {
+router.post("/create", verifyToken, (req, res) => {
   // body = first_name, last_name, email, gender, ip_address, avatar,
   const status = user.newUser(req.body);
   const message =
@@ -30,7 +29,7 @@ router.post("/create", (req, res) => {
   res.status(status).send(message);
 });
 
-router.delete("/delete/:id", (req, res) => {
+router.delete("/delete/:id", verifyToken, (req, res) => {
   const id = req.params.id;
   const status = user.deleteUser(id);
   const message =
